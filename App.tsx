@@ -12,7 +12,7 @@ import { Loading } from "./src/components/Loading";
 import { THEME } from "./src/theme";
 
 import { useEffect } from "react";
-import { OneSignal } from "react-native-onesignal";
+import { NotificationClickEvent, OneSignal } from "react-native-onesignal";
 import { CartContextProvider } from "./src/contexts/CartContext";
 import { tagUserInfoCreate } from "./src/notifications/notificationsTags";
 
@@ -28,6 +28,20 @@ export default function App() {
     OneSignal.Notifications.requestPermission(true);
     tagUserInfoCreate();
   }, []); // Ensure this only runs once on app mount
+
+  useEffect(() => {
+    const handleNotificationClick = (event: NotificationClickEvent): void => {
+      console.log("Notificação aberta");
+    };
+
+    OneSignal.Notifications.addEventListener("click", handleNotificationClick);
+
+    return () =>
+      OneSignal.Notifications.removeEventListener(
+        "click",
+        handleNotificationClick
+      );
+  }, []);
 
   return (
     <NativeBaseProvider theme={THEME}>
