@@ -14,6 +14,7 @@ import { THEME } from "./src/theme";
 import { useEffect } from "react";
 import { OneSignal } from "react-native-onesignal";
 import { CartContextProvider } from "./src/contexts/CartContext";
+import { tagUserInfoCreate } from "./src/notifications/notificationsTags";
 
 export default function App() {
   const [fontsLoaded] = useFonts({ Roboto_400Regular, Roboto_700Bold });
@@ -25,6 +26,7 @@ export default function App() {
     // Use this method to prompt for push notifications.
     // We recommend removing this method after testing and instead use In-App Messages to prompt for notification permission.
     OneSignal.Notifications.requestPermission(true);
+    tagUserInfoCreate();
   }, []); // Ensure this only runs once on app mount
 
   return (
