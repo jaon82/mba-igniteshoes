@@ -20,6 +20,9 @@ const linking = {
           productId: (productId: string) => productId,
         },
       },
+      cart: {
+        path: "/cart",
+      },
     },
   },
 };
