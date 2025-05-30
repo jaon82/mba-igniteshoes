@@ -10,6 +10,20 @@ import {
 import { Notification } from "../components/Notification";
 import { AppRoutes } from "./app.routes";
 
+const linking = {
+  prefixes: ["igniteshoes://", "com.rocketseat.igniteshoes://"],
+  config: {
+    screens: {
+      details: {
+        path: "/details/:productId",
+        parse: {
+          productId: (productId: string) => productId,
+        },
+      },
+    },
+  },
+};
+
 export function Routes() {
   const { colors } = useTheme();
   const [notification, setNotification] = useState<OSNotification>();
@@ -37,7 +51,7 @@ export function Routes() {
   }, []);
 
   return (
-    <NavigationContainer theme={theme}>
+    <NavigationContainer theme={theme} linking={linking}>
       <AppRoutes />
       {notification?.title && (
         <Notification
